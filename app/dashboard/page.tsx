@@ -78,7 +78,7 @@ export default function DashboardPage() {
           <section className="relative w-full aspect-video bg-[#0A192F] rounded-[2rem] overflow-hidden shadow-lg shadow-slate-200">
             {isClient ? (
               <Player 
-                url={site?.url_camara || "https://dinner-tomato-located-stake.trycloudflare.com/camara1/index.m3u8"}
+                url={site?.url_camara || "https://branches-mostly-lcd-favour.trycloudflare.com/camara1/index.m3u8"}
                 playing={true} muted={true} playsinline={true} width="100%" height="100%"
                 style={{ objectFit: 'cover', filter: 'brightness(1.05) contrast(1.05)' }}
               />
