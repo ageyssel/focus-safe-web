@@ -100,7 +100,7 @@ export default function DashboardPage() {
                 {/* Visualizador de Video */}
                 <section className="relative aspect-video bg-black rounded-[2.5rem] overflow-hidden shadow-2xl shadow-slate-300 border-[8px] border-white">
                   {isClient ? (
-                    <Player url={site?.url_camara || "https://branches-mostly-lcd-favour.trycloudflare.com/camara1/index.m3u8"} playing={true} muted={true} playsinline={true} width="100%" height="100%" style={{ objectFit: 'cover' }} />
+                    <Player url={site?.url_camara || "https://carriers-actual-funky-intro.trycloudflare.com/camara1/index.m3u8"} playing={true} muted={true} playsinline={true} width="100%" height="100%" style={{ objectFit: 'cover' }} />
                   ) : <div className="w-full h-full bg-slate-900 animate-pulse"></div>}
                   <div className="absolute top-6 left-6 flex items-center gap-3 bg-red-600 px-4 py-2 rounded-full shadow-xl">
                     <div className="w-2 h-2 bg-white rounded-full animate-ping"></div>
