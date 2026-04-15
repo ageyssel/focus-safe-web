@@ -1,5 +1,6 @@
 'use client';
 
+import ReactPlayer from 'react-player';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/utils/supabase';
 import { Shield, ShieldAlert, ShieldCheck, Video, Clock, Zap, Activity } from 'lucide-react';
@@ -116,12 +117,20 @@ export default function DashboardPage() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Cámara 1: Feed Real vía MediaMTX */}
+              {/* Cámara 1: Feed Real vía React Player */}
               <div className="aspect-video bg-black rounded-[2.5rem] overflow-hidden shadow-2xl border-[6px] border-white relative group">
-                <iframe 
-                  src="https://dinner-tomato-located-stake.trycloudflare.com/camara1" 
-                  className="w-full h-full border-0 grayscale-[0.1] contrast-110" 
+  
+                {/* Reproductor Nativo: Forzamos mute y playsinline para engañar al celular */}
+                <ReactPlayer 
+                  url="https://dinner-tomato-located-stake.trycloudflare.com/camara1/"
+                  playing={true}
+                  muted={true}
+                  playsinline={true}
+                  width="100%"
+                  height="100%"
+                  style={{ objectFit: 'cover', filter: 'contrast(1.1) grayscale(0.1)' }}
                 />
+
                 <div className="absolute top-5 left-5 flex items-center gap-2 bg-red-600/90 backdrop-blur-md px-3 py-1 rounded-full shadow-lg">
                   <div className="w-1.5 h-1.5 bg-white rounded-full animate-ping"></div>
                   <span className="text-[9px] text-white font-black uppercase tracking-tighter">Live</span>
