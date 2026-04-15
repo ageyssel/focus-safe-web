@@ -119,7 +119,7 @@ export default function DashboardPage() {
               {/* Cámara 1: Feed Real vía MediaMTX */}
               <div className="aspect-video bg-black rounded-[2.5rem] overflow-hidden shadow-2xl border-[6px] border-white relative group">
                 <iframe 
-                  src="https://template-interracial-thing-href.trycloudflare.com/camara1" 
+                  src="https://dinner-tomato-located-stake.trycloudflare.com/camara1" 
                   className="w-full h-full border-0 grayscale-[0.1] contrast-110" 
                 />
                 <div className="absolute top-5 left-5 flex items-center gap-2 bg-red-600/90 backdrop-blur-md px-3 py-1 rounded-full shadow-lg">
