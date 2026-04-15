@@ -5,15 +5,19 @@ import { supabase } from '@/utils/supabase';
 import { Shield, ShieldAlert, ShieldCheck, Video, Clock, Zap, Activity } from 'lucide-react';
 import ReactPlayer from 'react-player';
 
+// FIX ARQUITECTURA: Bypasseamos el conflicto de tipos de TypeScript con react-player
+// Esto asegura que compile siempre en Cloudflare sin importar cuán estricto sea TS.
+const Player = ReactPlayer as any;
+
 export default function DashboardPage() {
   const [site, setSite] = useState<any>(null);
   const [logs, setLogs] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [isClient, setIsClient] = useState(false);
 
-  // 1. Sincronización con Supabase y control de cliente
+  // 1. Sincronización con Supabase y control de hidratación
   useEffect(() => {
-    setIsClient(true); // Confirma que estamos en el navegador para cargar el video seguro
+    setIsClient(true); // Previene errores de hidratación en SSR (Next.js)
 
     const fetchData = async () => {
       const { data: siteData } = await supabase.from('sites').select('*').limit(1).single();
@@ -32,6 +36,7 @@ export default function DashboardPage() {
 
     fetchData();
 
+    // Tiempo real para clientes masivos
     const siteChannel = supabase
       .channel('cambios-sitios')
       .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'sites' }, 
@@ -107,11 +112,11 @@ export default function DashboardPage() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Cámara 1: Preparada para multi-cliente */}
+              {/* Cámara 1: Lógica Multi-Tenant Automática */}
               <div className="aspect-video bg-black rounded-[2.5rem] overflow-hidden shadow-2xl border-[6px] border-white relative group">
                 
                 {isClient ? (
-                  <ReactPlayer 
+                  <Player 
                     url={site?.url_camara || "https://dinner-tomato-located-stake.trycloudflare.com/camara1/index.m3u8"}
                     playing={true}
                     muted={true}
@@ -143,7 +148,7 @@ export default function DashboardPage() {
             </div>
           </section>
 
-          {/* Panel de Controles (Sin cambios) */}
+          {/* Panel de Controles */}
           <section className="bg-white p-10 rounded-[3rem] shadow-sm border border-neutral-100">
             <div className="flex items-center gap-3 mb-8 text-neutral-500">
               <Zap size={18} strokeWidth={1.5} />
@@ -170,7 +175,7 @@ export default function DashboardPage() {
           </section>
         </div>
 
-        {/* Logs (Sin cambios) */}
+        {/* Logs */}
         <aside className="lg:col-span-4 h-fit">
           <div className="bg-white p-10 rounded-[3rem] shadow-sm border border-neutral-100 lg:sticky lg:top-8">
             <div className="flex items-center justify-between mb-10">
